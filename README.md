@@ -13,9 +13,9 @@ The luxtronik controller is often used by the following known manufaturers of he
 * Nibe
 * Wolf Heiztechnik
 
-Deutsche Beschreibung auf [mschatz.net](https://www.schatz.bayern/smarthome/shng/luxtronik)
+Deutsche Beschreibung auf [schatz.bayern](https://www.schatz.bayern/smarthome/shng/luxtronik)
 
-Detailed english description on [mschatz.net](https://www.schatz.bayern/en/smarthome/shng/luxtronik)
+Detailed english description on [schatz.bayern](https://www.schatz.bayern/en/smarthome/shng/luxtronik)
 
 ## Usage
 Install and activate the plugin.
