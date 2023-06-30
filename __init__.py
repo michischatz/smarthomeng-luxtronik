@@ -45,7 +45,7 @@ class luxtronik(SmartPlugin):
     the update functions for the items
     """
 
-    PLUGIN_VERSION = '1.0.0'    # (must match the version specified in plugin.yaml), use '1.0.0' for your initial plugin 
+    PLUGIN_VERSION = '1.1.0'    # (must match the version specified in plugin.yaml), use '1.0.0' for your initial plugin 
 
     def __init__(self, sh):
 
@@ -204,7 +204,11 @@ class luxtronik(SmartPlugin):
         length = struct.unpack(">i", self._socket.recv(4))[0]
         self.logger.debug("Length %s", length)
         for _ in range(0, length):
-            data.append(struct.unpack(">i", self._socket.recv(4))[0])
+            try:
+                data.append(struct.unpack(">i", self._socket.recv(4))[0])
+            except struct.error as err:
+                # not logging this as error as it would be logged on every read cycle
+                self.logger.debug("%s: %s", self._host, err)
         self.logger.info("Read %d parameters", length)
         self.parameters.parse(data)
 
@@ -218,7 +222,11 @@ class luxtronik(SmartPlugin):
         length = struct.unpack(">i", self._socket.recv(4))[0]
         self.logger.debug("Length %s", length)
         for _ in range(0, length):
-            data.append(struct.unpack(">i", self._socket.recv(4))[0])
+            try:
+                data.append(struct.unpack(">i", self._socket.recv(4))[0])
+            except struct.error as err:
+                # not logging this as error as it would be logged on every read cycle
+                self.logger.debug("%s: %s", self._host, err)
         self.logger.info("Read %d calculations", length)
         self.calculations.parse(data)
 
@@ -230,6 +238,10 @@ class luxtronik(SmartPlugin):
         length = struct.unpack(">i", self._socket.recv(4))[0]
         self.logger.debug("Length %s", length)
         for _ in range(0, length):
-            data.append(struct.unpack(">b", self._socket.recv(1))[0])
+            try:
+                data.append(struct.unpack(">b", self._socket.recv(1))[0])
+            except struct.error as err:
+                # not logging this as error as it would be logged on every read cycle
+                self.logger.debug("%s: %s", self._host, err)
         self.logger.info("Read %d visibilities", length)
         self.visibilities.parse(data)
